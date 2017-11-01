@@ -6,10 +6,16 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var flash = require('express-flash');
 var session = require('express-session');
-
+var mongoose = require('mongoose');
 
 var MongoClient = require("mongodb").MongoClient;
 var db_url = process.env.MONGO_URL;
+
+mongoose.connect(db_url, { useMongoClient:true})
+    .then( () => { console.log('Connected to MongoDB')})
+    .catch( (err) => { console.log('Error Connecting to MongoDB', err);});
+
+mongoose.promise = global.Promise;
 
 
 var index = require('./routes/index');
